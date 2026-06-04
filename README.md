@@ -140,45 +140,72 @@ on port `8000`.
 
 ## Available Tools
 
+41 tools are registered. Tools marked **✏️ write** modify GitLab; those marked **📢 external**
+create content visible to others and require explicit confirmation before they act.
+
 ### Status
-- `gitlab_status` - Show detected configuration (project, branch, URL, auth status)
+- `gitlab_status` - Show current configuration: detected project, branch, GitLab URL, and auth status
 
 ### Project Tools
-- `gitlab_get_project` - Get project details
-- `gitlab_list_projects` - List accessible projects
+- `gitlab_get_project` - Get information about a GitLab project
+- `gitlab_list_projects` - List projects accessible to the authenticated user
 
 ### Repository Tools
-- `gitlab_list_branches` - List branches
-- `gitlab_list_commits` - List commits with filters (branch, path, date range)
-- `gitlab_get_commit` - Get commit details including diff
-- `gitlab_get_file` - Get file contents
-- `gitlab_list_tree` - List files and directories
-
-### Merge Request Tools
-- `gitlab_list_merge_requests` - List MRs with filters (state, labels, branches)
-- `gitlab_get_merge_request` - Get detailed MR information
-- `gitlab_get_merge_request_changes` - Get MR diff/changes
-- `gitlab_get_merge_request_commits` - List commits in an MR
-- `gitlab_get_mr_pipelines` - List pipelines for an MR
-
-### Discussion Tools
-- `gitlab_list_mr_discussions` - List discussion threads including inline comments
-- `gitlab_list_mr_notes` - List all comments in flat format
-- `gitlab_resolve_mr_discussion` - Resolve or unresolve a discussion thread
+- `gitlab_list_branches` - List branches in a project
+- `gitlab_list_commits` - List commits (filter by branch, path, date range)
+- `gitlab_get_commit` - Get details of a specific commit including its diff
+- `gitlab_get_file` - Get contents of a file from the repository
+- `gitlab_list_tree` - List files and directories in a repository path
 
 ### Compare Tools
-- `gitlab_compare` - Compare two branches, tags, or commits
+- `gitlab_compare` - Compare two branches, tags, or commits to see the differences
 
-### Pipeline Tools
-- `gitlab_list_pipelines` - List project pipelines with filters
-- `gitlab_get_pipeline` - Get pipeline details
+### Issue Tools
+- `gitlab_list_issues` - List issues in a project
+- `gitlab_get_issue` - Get details of a specific issue
+- `gitlab_update_issue` - **✏️ write** Update an issue's title, description, assignees, labels, state, or milestone
+- `gitlab_close_issue` - **✏️ write** Close an issue
+- `gitlab_reopen_issue` - **✏️ write** Reopen a closed issue
+
+### Merge Request Tools
+- `gitlab_list_merge_requests` - List merge requests in a project
+- `gitlab_get_merge_request` - Get details of a specific merge request
+- `gitlab_get_merge_request_changes` - Get the diff/changes for a merge request
+- `gitlab_get_merge_request_commits` - List commits in a merge request
+- `gitlab_get_mr_pipelines` - List pipelines associated with a merge request
+- `gitlab_create_merge_request` - **✏️ write 📢 external** Create a new MR (shows a preview; requires `confirm=true`)
+
+### Discussion Tools
+- `gitlab_list_mr_discussions` - List MR discussion threads (excludes resolved by default)
+- `gitlab_list_mr_notes` - List notes (comments) on an MR in flat format (excludes resolved/system notes by default)
+- `gitlab_resolve_mr_discussion` - **✏️ write** Resolve or unresolve a discussion thread
+
+### Draft Review Note Tools
+Queue review comments privately, then publish them as a batch. Drafts are only visible to you until published.
+- `gitlab_list_mr_draft_notes` - List your pending (draft) review comments on an MR
+- `gitlab_create_mr_draft_note` - **✏️ write** Queue a review comment without publishing (supports diff-line positions and threaded replies)
+- `gitlab_update_mr_draft_note` - **✏️ write** Edit a queued draft note before publishing
+- `gitlab_delete_mr_draft_note` - **✏️ write** Discard a queued draft note without publishing it
+- `gitlab_publish_mr_draft_note` - **✏️ write 📢 external** Publish a single queued draft note (requires confirmation)
+- `gitlab_publish_mr_draft_notes` - **✏️ write 📢 external** Bulk-publish ALL queued draft notes on an MR (requires confirmation)
+
+### Label Tools
+- `gitlab_search_labels` - Search for labels in a project (returns all labels when no search term is given)
+
+### Pipeline & Job Tools
+- `gitlab_list_pipelines` - List pipelines in a project
+- `gitlab_get_pipeline` - Get details of a specific pipeline
 - `gitlab_list_pipeline_jobs` - List jobs in a pipeline (grouped by stage)
-- `gitlab_get_job` - Get job details
-- `gitlab_get_job_log` - Get job log output (with tail and ANSI stripping)
+- `gitlab_get_job` - Get details of a specific job
+- `gitlab_get_job_log` - Get the log output of a job (with tail and ANSI stripping)
+- `gitlab_run_pipeline` - **✏️ write** Trigger a new pipeline on a branch or tag
+- `gitlab_retry_pipeline` - **✏️ write** Retry failed jobs in a pipeline
+- `gitlab_cancel_pipeline` - **✏️ write** Cancel a running pipeline
+- `gitlab_delete_pipeline` - **✏️ write** Delete a pipeline record (does not cancel; cancel first if still running)
 
 ### Review Orchestration Tools
-- `gitlab_prepare_mr_review` - Prepare a large MR for chunked review (returns manifest of file groups)
-- `gitlab_get_review_chunk` - Get full untruncated diffs for a review chunk (with optional discussions/commits)
+- `gitlab_prepare_mr_review` - Prepare a large MR for chunked review (returns a manifest of file groups)
+- `gitlab_get_review_chunk` - Get full untruncated diffs for a review chunk (optionally with discussions/commits)
 
 ## Reviewing Large MRs
 
