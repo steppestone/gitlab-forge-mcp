@@ -1,0 +1,11 @@
+node_modules/
+dist/
+*.log
+.gitlab-token
+
+.omc/
+.claude/
+
+# Personal deployment / infra config (not for public repo)
+application.yaml
+manifests/
