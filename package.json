@@ -1,0 +1,46 @@
+{
+  "name": "gitlab-forge-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for GitLab API integration - read repositories, commits, merge requests and comments",
+  "type": "module",
+  "main": "dist/server.js",
+  "bin": {
+    "gitlab-forge-mcp": "dist/server.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steppestone/gitlab-mcp.git"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "gitlab"
+  ],
+  "license": "MIT",
+  "author": "Björn Mosten",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "npx tsx src/server.ts",
+    "test": "node --import tsx --test src/**/*.test.ts src/tools/**/*.test.ts src/tools/review/**/*.test.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "express": "^5.2.1",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}
